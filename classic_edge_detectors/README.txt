@@ -1,6 +1,7 @@
 A review of classic edge detectors
 ==================================
 Version 1.0 - June 21, 2013
+Version 1.1 - May  13, 2014
 Haldo Sponton <haldos@fing.edu.uy>
 Juan Cardelino <juanc@fing.edu.uy>
 
@@ -13,7 +14,7 @@ Sobel, Marr-Hildreth and Haralick. This code is part of the following
 publication:
 
   "A review of classic edge detectors"
-  by Haldo Sponton and Juan Cardelino, Image Processing On Line, 2013.
+  by Haldo Sponton and Juan Cardelino, Image Processing On Line, 2014.
 
 
 Files
@@ -68,7 +69,7 @@ images and compare the result to the provided ones. This is done with
 Running edges Command
 ---------------------
 
-The simplest LSD command execution is just
+The simplest edges command execution is just
 
   edges
 
@@ -99,6 +100,31 @@ will apply Roberts' algorithm with threshold parameter 0.1, and the
 Marr-Hildreth (LoG) with parameters sigma=3.00, N=29, TZC=0.13; the results are
 stored in the files "out_roberts.png" and "out_mhl.png".
 
+Note: it executes only one algorithm each time, i.e. it can't run two simultaneously.
+
+
+Tested platforms
+----------------
+
+* Ubuntu Linux 14.04 x86_64
+   * gcc version 4.8.2 (Ubuntu 4.8.2-19ubuntu1)
+* OSX Mavericks 10.9.2
+   * clang: Apple LLVM version 5.1 (clang-503.0.40) (based on LLVM 3.4svn)
+
+Documentation
+-------------
+There are some doxygen comments added to the code, and a doxygen.cfg file is provided to generate the documentation.
+
+Changelog
+---------
+
+* 2014.04.30:
+   * Improved documentation to reflect the new implementation executables.
+   * Added the padding method as a input argument.
+   * Improved the README, explaining simultaneous execution.
+	* Verified Haralick's conditions.
+	* Fixed kernel normalization.
+	* Added doxygen config file.
 
 Copyright and License
 ---------------------
@@ -123,4 +149,4 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 Thanks
 ------
 
-Comments with suggestions, errors, bugs or strange results are welcome.
+Comments with suggestions, errors, bugs or strange results are welcome. Please contact Juan Cardelino <juanc@fing.edu.uy>

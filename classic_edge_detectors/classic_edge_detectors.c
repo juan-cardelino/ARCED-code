@@ -65,8 +65,9 @@ static float *gaussian_kernel(int n, float sigma) {
     }
 
     // Kernel normalization
-    for(int i=0; i<n*n; i++) {
-        kernel[i] = kernel[i] / sum;
+    
+	 for(int i=0; i<n*n; i++) {
+        kernel[i] = kernel[i] / (2.0*sigma*sigma*M_PI) ;
     }
 
     return kernel;
@@ -93,21 +94,17 @@ static float *LoG_kernel(int n, float sigma) {
         }
     }
 
-    // Normalization
-    for(int i=0; i<n*n; i++) {
-        kernel[i] /= sum;
-    }
 
     return kernel;
 }
 
-// 2D convolution of an input image (size w x h) with a square (n x n) kernel.
-//
-// Two padding methods are available:
-//   zero-padding (padding_method=0)
-//   image boundary reflection (padding_method=1)
-//
-// returns a pointer to the resulting (w+n-1) x (h+n-1) image.
+/** \brief 2D convolution of an input image (size w x h) with a square (n x n) kernel.
+
+ Two padding methods are available:
+   zero-padding (padding_method=0)
+   image boundary reflection (padding_method=1)
+ returns a pointer to the resulting (w+n-1) x (h+n-1) image.
+*/
 static float *conv2d(float *input, int w, int h,
                      float *kernel, int n, int padding_method) {
 
@@ -527,6 +524,7 @@ float *edges_haralick(float *im, int w, int h,
             float k10 = aux[9][i+2 + (j+2)*(w+4)];
             float sintheta = - k2 / sqrt(k2*k2 + k3*k3);
             float costheta = - k3 / sqrt(k2*k2 + k3*k3);
+            float C1 = k2  * sintheta + k3 * costheta;
             float C2 = k4  * sintheta * sintheta
                      + k5  * sintheta * costheta
                      + k6  * costheta * costheta;
@@ -534,7 +532,7 @@ float *edges_haralick(float *im, int w, int h,
                      + k8  * sintheta * sintheta * costheta
                      + k9  * sintheta * costheta * costheta
                      + k10 * costheta * costheta * costheta;
-            if( fabs( C2 / (3.0 * C3) ) <= rhozero && C3 < 0.0 ) {
+            if( fabs( C2 / (3.0 * C3) ) <= rhozero && C3 < 0.0  && C2 > 0.0) {
                 edges[i+j*w] = 255.0;
             } else {
                 edges[i+j*w] = 0.0;

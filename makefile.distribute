@@ -1,14 +1,18 @@
 DIRNAME=classic_edge_detectors
-TARGET=classic_edge_detectors.zip
+VERSION=1.1
+TARGET=classic_edge_detectors_$(VERSION).zip
 all: $(TARGET)
 
 
 $(TARGET):
 	zip -9r $@ $(DIRNAME) -x $(DIRNAME)/makefile.distribute $(DIRNAME)/edges
 
+
+DEST=./webdocs/files/ipol
+
 upload: $(TARGET)
-	rsync -avzu $(TARGET) ampere:./webdocs/files/
-	ssh ampere 'chmod -R a+rX ./webdocs/files'
+	rsync -avzu $(TARGET) ampere:$(DEST)
+	ssh ampere 'chmod -R a+rX $(DEST)'
 
 clean:
 	-rm -f $(TARGET)

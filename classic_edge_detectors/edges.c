@@ -44,6 +44,8 @@ void displayhelp(void) {
            "                            th      threshold (float in [0,1])\n"
            "  -h <th>                Haralick's algorithm\n"
            "                            th      threshold (float in [0,1])\n"
+           "  -z <pd>                Boundary condition used\n"
+           "                            pd      padding method (0 zero padding, 1 periodic)\n"
            "  -H                     Display this help\n"
            "\nMore than one option can be used together. "
            "Output is written to image files.\n");
@@ -54,7 +56,7 @@ int main(int argc, char *argv[]) {
 
     /* Start */
     printf("A review of classic edge detection algorithms\n");
-    printf("Haldo Sponton & Juan Cardelino, IPOL 2013\n\n");
+    printf("Haldo Sponton & Juan Cardelino, IPOL 2014\n\n");
 
     /* Options and parameters handling */
     int argc_sobel = 0;         //
@@ -63,6 +65,7 @@ int main(int argc, char *argv[]) {
     int argc_mh = 0;            //
     int argc_mhl = 0;           //
     int argc_haralick = 0;      //
+    int argc_padding = 0;      //
     int padding_method = 1;     // Reflection of image boundary. Hard-coded.
                                 // Can be changed to 0 (zero-padding)
 
@@ -82,12 +85,14 @@ int main(int argc, char *argv[]) {
                                break;
                     case 'h':  argc_haralick = n;
                                break;
+                    case 'z':  argc_padding = n;
+                               break;
                     case 'H':  /* Display help! */
                                displayhelp();
                                exit(1);
                                break;
                     default:   printf("Error: Invalid option -> %s. Valid"
-                                      " options are -r, -p, -s, -h, -m and -l"
+                                      " options are -r, -p, -s, -h, -m, -l, -z"
                                       " (-H for help).\n", argv[n]);
                                exit(1);
                                break;
@@ -133,6 +138,7 @@ int main(int argc, char *argv[]) {
     if(argc_mh!=0)       nparam+=4;
     if(argc_mhl!=0)      nparam+=4;
     if(argc_haralick!=0) nparam+=2;
+    if(argc_padding!=0)  nparam+=2;
     if(nparam!=argc) {
         printf("Error: Wrong number of arguments (%d instead of %d)\n"
                "Usage: %s [options] input.png\n"
@@ -146,7 +152,12 @@ int main(int argc, char *argv[]) {
     printf("Input image: %s\n",argv[argc-1]);
     printf("Size: %zd x %zd\n\n",w,h);
 
-    /* Roberts edge detection algorithm */
+	 /* pick padding method */
+    if(argc_padding!=0) {
+		 padding_method=atoi(argv[argc_padding+1]);
+	 }  
+
+	 /* Roberts edge detection algorithm */
     if(argc_roberts!=0) {
         float th_roberts = atof(argv[argc_roberts+1]); // threshold
         printf("Running Roberts, threshold=%.2f",th_roberts);
