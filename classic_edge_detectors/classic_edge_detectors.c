@@ -32,6 +32,11 @@
 #define MIN(x, y) (((x) < (y)) ? (x) : (y))
 #define THRESHOLD(x, th) (((x) > (th)) ? (255) : (0))
 
+
+#ifndef M_PI
+#define M_PI           3.14159265358979323846
+#endif
+
 // Fatal error, print a message to standard-error output and exit.
 static void error(char * msg) {
     fprintf(stderr,"Error: %s\n",msg);
