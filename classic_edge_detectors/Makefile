@@ -1,7 +1,7 @@
 C99=c99 # C99 compiler
 
 #change these flags to point to your libpng headers and libraries (only required on some unix flavours different from ubuntu (OSX mainly))
-CFLAGS=-I/usr/local/include
+CFLAGS=-g -I/usr/local/include
 LDFLAGS=-L/usr/local/lib
 FLAGS=$(CFLAGS) $(LDFLAGS)
 
