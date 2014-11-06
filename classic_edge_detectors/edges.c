@@ -167,10 +167,12 @@ int main(int argc, char *argv[]) {
 	 const char fname_output[256];
 	 const char basename_output[256];
 	 sprintf(basename_output,"%s","out");
+
 	 if(argc_output!=0)
 	 {
 		 sprintf(basename_output,"%s",argv[argc_output+1]);
-		 printf("basename_output: %s\n",basename_output);
+		 printf("basename_output: %s\n",basename_output,".png");
+		 sprintf(fname_output,"%s%s",basename_output,".png");
 	 }
 
 	 /* Roberts edge detection algorithm */
@@ -178,7 +180,7 @@ int main(int argc, char *argv[]) {
         float th_roberts = atof(argv[argc_roberts+1]); // threshold
         printf("Running Roberts, threshold=%.2f",th_roberts);
         float *im_roberts = edges_roberts(im, w, h, th_roberts, padding_method);
-		  sprintf(fname_output,"%s_%s",basename_output,"roberts.png");
+		  if(argc_output==0) sprintf(fname_output,"%s%s",basename_output,"_roberts.png");
         io_png_write_f32(fname_output, im_roberts, w, h, 1);
         free(im_roberts);
     }
@@ -188,7 +190,7 @@ int main(int argc, char *argv[]) {
         float th_prewitt = atof(argv[argc_prewitt+1]); // threshold
         printf("Running Prewitt, threshold=%.2f",th_prewitt);
         float *im_prewitt = edges_prewitt(im, w, h, th_prewitt, padding_method);
-		  sprintf(fname_output,"%s_%s",basename_output,"prewitt.png");
+		  if(argc_output==0) sprintf(fname_output,"%s%s",basename_output,"_prewitt.png");
         io_png_write_f32(fname_output, im_prewitt, w, h, 1);
         printf(" output: %s\n",fname_output);
         free(im_prewitt);
@@ -199,7 +201,7 @@ int main(int argc, char *argv[]) {
         float th_sobel = atof(argv[argc_sobel+1]); // threshold
         printf("Running Sobel, threshold=%.2f",th_sobel);
         float *im_sobel = edges_sobel(im, w, h, th_sobel, padding_method);
-		  sprintf(fname_output,"%s_%s",basename_output,"sobel.png");
+		  if(argc_output==0) sprintf(fname_output,"%s%s",basename_output,"_sobel.png");
         io_png_write_f32(fname_output, im_sobel, w, h, 1);
         free(im_sobel);
     }
@@ -212,7 +214,7 @@ int main(int argc, char *argv[]) {
         printf("Running Marr-Hildreth (Gaussian), sigma=%.2f, N=%d, TZC=%.2f",
                sigma_m, n_m, tzc_m);
         float *im_mh = edges_mh(im, w, h, sigma_m, n_m, tzc_m, padding_method);
-		  sprintf(fname_output,"%s_%s",basename_output,"mh.png");
+		  if(argc_output==0) sprintf(fname_output,"%s%s",basename_output,"_mh.png");
         io_png_write_f32(fname_output, im_mh, w, h, 1);
         free(im_mh);
     }
@@ -226,7 +228,7 @@ int main(int argc, char *argv[]) {
                sigma_l, n_l, tzc_l);
         float *im_mhl = edges_mh_log(im, w, h,
                                      sigma_l, n_l, tzc_l, padding_method);
-		  sprintf(fname_output,"%s_%s",basename_output,"mhl.png");
+		  if(argc_output==0) sprintf(fname_output,"%s%s",basename_output,"_mhl.png");
         io_png_write_f32(fname_output, im_mhl, w, h, 1);
         free(im_mhl);
     }
@@ -236,7 +238,7 @@ int main(int argc, char *argv[]) {
         float rhozero = atof(argv[argc_haralick+1]); // threshold
         printf("Running Haralick, rhozero=%.2f",rhozero);
         float *im_haralick = edges_haralick(im, w, h, rhozero, padding_method);
-		  sprintf(fname_output,"%s_%s",basename_output,"haralick.png");
+		  if(argc_output==0) sprintf(fname_output,"%s%s",basename_output,"_haralick.png");
         io_png_write_f32(fname_output, im_haralick, w, h, 1);
         free(im_haralick);
     }

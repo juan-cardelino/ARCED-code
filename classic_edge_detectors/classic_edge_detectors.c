@@ -70,7 +70,7 @@ static float *gaussian_kernel(int n, float sigma) {
     }
 
     // Kernel normalization
-    
+
 	 for(int i=0; i<n*n; i++) {
         kernel[i] = kernel[i] / (2.0*sigma*sigma*M_PI) ;
     }
@@ -504,7 +504,7 @@ float *edges_haralick(float *im, int w, int h,
                                   2180,  1160,  820, 1160, 2180,
                                      0,     0,    0,    0,    0,
                                  -2180, -1160, -820,-1160,-2180,
-                                 -8260, -6220, 5540,-6220,-8260   } };
+                                 -8260, -6220, -5540,-6220,-8260   } };
 
     // apply the masks operators, this will lead to coefficients k1 to k10
     float *aux[10];
@@ -527,8 +527,8 @@ float *edges_haralick(float *im, int w, int h,
             float k8  = aux[7][i+2 + (j+2)*(w+4)];
             float k9  = aux[8][i+2 + (j+2)*(w+4)];
             float k10 = aux[9][i+2 + (j+2)*(w+4)];
-            float sintheta = - k2 / sqrt(k2*k2 + k3*k3);
-            float costheta = - k3 / sqrt(k2*k2 + k3*k3);
+            float sintheta =  -k2 / sqrt(k2*k2 + k3*k3);
+            float costheta =  -k3 / sqrt(k2*k2 + k3*k3);
             float C1 = k2  * sintheta + k3 * costheta;
             float C2 = k4  * sintheta * sintheta
                      + k5  * sintheta * costheta
@@ -537,7 +537,11 @@ float *edges_haralick(float *im, int w, int h,
                      + k8  * sintheta * sintheta * costheta
                      + k9  * sintheta * costheta * costheta
                      + k10 * costheta * costheta * costheta;
-            if( fabs( C2 / (3.0 * C3) ) <= rhozero && C3 < 0.0  && C2 > 0.0) {
+				int cond1=fabs( C2 / (3.0 * C3)) < rhozero;
+				int cond2=C3 < 0.0;
+				int cond3=C2 > 0.0;
+				int cond4=fabs(C1-C2*C2/C3/3) > 0.0;	//this one does not need to be imposed by construction, see paper.
+            if( cond1  && cond2 && cond2 && 1) {
                 edges[i+j*w] = 255.0;
             } else {
                 edges[i+j*w] = 0.0;
