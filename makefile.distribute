@@ -5,7 +5,7 @@ all: $(TARGET)
 
 
 $(TARGET):
-	zip -9r $@ $(DIRNAME) -x $(DIRNAME)/makefile.distribute $(DIRNAME)/edges $(DIRNAME)/test
+	zip -9r $@ $(DIRNAME) -x $(DIRNAME)/edges $(DIRNAME)/.DS_Store
 
 
 DEST=./public_html/files/ipol

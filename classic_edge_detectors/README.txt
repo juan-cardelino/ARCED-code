@@ -29,10 +29,10 @@ edges.c                   - command line interface for the edge detectors.
 io_png.c                  - interface to the libPNG for image input and output.
 io_png.h                  - interface to the libPNG for image input and output.
 lena.png                  - test image
-molino.png                - test image
+windmill.png                - test image
 oranges.png               - test image
 expected_results          - directory, contains the expected results for the
-                            five algorithms for the image molino.png
+                            five algorithms for the image windmill.png
 
 The files "classic_edge_detectors.c" and "classic_edge_detectors.h" were
 subject to peer review as part of the acceptance process of the IPOL article.
@@ -65,6 +65,7 @@ images and compare the result to the provided ones. This is done with
 
   make test
 
+Note: OSX users will have to change Makefile to add the location of libpng
 
 Running edges Command
 ---------------------
@@ -108,8 +109,10 @@ Tested platforms
 
 * Ubuntu Linux 14.04 x86_64
    * gcc version 4.8.2 (Ubuntu 4.8.2-19ubuntu1)
+* OSX Mavericks 10.10
+   * clang: Apple LLVM version 6.0 (clang-600.0.54) (based on LLVM 3.5svn) 
 * OSX Mavericks 10.9.2
-   * clang: Apple LLVM version 5.1 (clang-503.0.40) (based on LLVM 3.4svn)
+	* clang: Apple LLVM version 5.1 (clang-503.0.40) (based on LLVM 3.4svn)
 
 Documentation
 -------------
@@ -118,6 +121,10 @@ There are some doxygen comments added to the code, and a doxygen.cfg file is pro
 Changelog
 ---------
 
+* 2014.11.10:
+   * Corrected bug in Haralick's algorithm
+	* Improved the way output filenames were handled
+	* Improved the console help of the executable
 * 2014.04.30:
    * Improved documentation to reflect the new implementation executables.
    * Added the padding method as a input argument.
@@ -148,5 +155,9 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 Thanks
 ------
+We would like to thank to the anonymous reviewers of the IPOL Journal and
+Rafael Grompone for his help improving the paper and the code.
 
+Contact
+-------
 Comments with suggestions, errors, bugs or strange results are welcome. Please contact Juan Cardelino <juanc@fing.edu.uy>

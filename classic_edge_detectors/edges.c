@@ -199,7 +199,6 @@ int main(int argc, char *argv[]) {
 		  if(argc_output==0 || nb_algos>1) sprintf(fname_output,"%s%s",basename_output,"_prewitt.png");
 		  printf(" output: %s\n",fname_output);
         io_png_write_f32(fname_output, im_prewitt, w, h, 1);
-        printf(" output: %s\n",fname_output);
         free(im_prewitt);
     }
 
