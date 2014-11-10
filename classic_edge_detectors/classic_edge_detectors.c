@@ -512,6 +512,7 @@ float *edges_haralick(float *im, int w, int h,
         aux[i] = conv2d(im, w, h, mask[i], 5, padding_method);
     }
 
+	 float eps=1e-16;
     // compute Haralick edges
     float *edges = xmalloc(w*h*sizeof(float)); // get memory for output
     for(int i=0; i<w; i++) {
@@ -527,8 +528,8 @@ float *edges_haralick(float *im, int w, int h,
             float k8  = aux[7][i+2 + (j+2)*(w+4)];
             float k9  = aux[8][i+2 + (j+2)*(w+4)];
             float k10 = aux[9][i+2 + (j+2)*(w+4)];
-            float sintheta =  -k2 / sqrt(k2*k2 + k3*k3);
-            float costheta =  -k3 / sqrt(k2*k2 + k3*k3);
+            float sintheta =  -k2 / sqrt(k2*k2 + k3*k3+eps);
+            float costheta =  -k3 / sqrt(k2*k2 + k3*k3+eps);
             float C1 = k2  * sintheta + k3 * costheta;
             float C2 = k4  * sintheta * sintheta
                      + k5  * sintheta * costheta
@@ -537,11 +538,12 @@ float *edges_haralick(float *im, int w, int h,
                      + k8  * sintheta * sintheta * costheta
                      + k9  * sintheta * costheta * costheta
                      + k10 * costheta * costheta * costheta;
-				int cond1=fabs( C2 / (3.0 * C3)) < rhozero;
+				int cond1=fabs( C2 / (3.0 * C3+eps)) < rhozero;
 				int cond2=C3 < 0.0;
-				int cond3=C2 > 0.0;
-				int cond4=fabs(C1-C2*C2/C3/3) > 0.0;	//this one does not need to be imposed by construction, see paper.
-            if( cond1  && cond2 && cond2 && 1) {
+				int cond3=C2 > 0.0;	//this condition is implicit, does not need to be checked, but we do to provide extra safety
+				//int cond4=fabs(C1-C2*C2/C3/3) > 0.0;	//this one does not need to be imposed by construction, see paper.
+				
+            if( cond1  && cond2 && cond3) {
                 edges[i+j*w] = 255.0;
             } else {
                 edges[i+j*w] = 0.0;

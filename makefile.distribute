@@ -1,18 +1,21 @@
 DIRNAME=classic_edge_detectors
-VERSION=1.1
+VERSION=1.2
 TARGET=classic_edge_detectors_$(VERSION).zip
 all: $(TARGET)
 
 
 $(TARGET):
-	zip -9r $@ $(DIRNAME) -x $(DIRNAME)/makefile.distribute $(DIRNAME)/edges
+	zip -9r $@ $(DIRNAME) -x $(DIRNAME)/makefile.distribute $(DIRNAME)/edges $(DIRNAME)/test
 
 
-DEST=./webdocs/files/ipol
+DEST=./public_html/files/ipol
+HOST=purple
+#DEST=./webdocs/files/ipol
+#HOST=ampere
 
 upload: $(TARGET)
-	rsync -avzu $(TARGET) ampere:$(DEST)
-	ssh ampere 'chmod -R a+rX $(DEST)'
+	rsync -avzu $(TARGET) $(HOST):$(DEST)
+	ssh $(HOST) 'chmod -R a+rX $(DEST)'
 
 clean:
 	-rm -f $(TARGET)

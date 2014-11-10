@@ -1,0 +1,10 @@
+if(i==11)
+				{
+					fprintf(stderr, "im: %g\n", im[i + w * j]);
+					fprintf(stderr, "sin: %g cos: %g\n", sintheta, costheta);
+					fprintf(stderr, "j:%2d C2: %12.2f C3: %12.2f C2/3C3: %4.2f\n", j,C2, C3,fabs( C2 / (3.0 * C3+eps)));
+					fprintf(stderr, "j: %d k:", j);
+					for (int ii = 0; ii < 10; ii++)
+						fprintf(stderr, "%10.0f", aux[ii][i + 2 + (j + 2)*(w + 4)]);
+					fprintf(stderr, "\n");
+				}
