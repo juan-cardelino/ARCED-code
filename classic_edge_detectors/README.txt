@@ -1,7 +1,9 @@
 A review of classic edge detectors
 ==================================
-Version 1.0 - June 21, 2013
+Version 1.0 - Jun  21, 2013
 Version 1.1 - May  13, 2014
+Version 1.2 - Nov  11, 2014
+
 Haldo Sponton <haldos@fing.edu.uy>
 Juan Cardelino <juanc@fing.edu.uy>
 
@@ -85,17 +87,17 @@ To obtain instructions, type
 
 A simple execution is
 
-  edges -r 0.1 molino.png
+  edges -r 0.1 input/windmill.png
 
-that will apply Roberts' algorithm to the image "molino.png" with a threshold
+that will apply Roberts' algorithm to the image "windmill.png" with a threshold
 parameter 0.1. The result is stored in an file on the current directory. The
 name of the output file is fixed for each algorithm, in this case
-"out_roberts.png".
+"out_roberts.png". Please note that the order of arguments matters, input image should be always the last argument.
 
 More than one algorithm can be applied to the same image with the same
 command. For example:
 
-  edges -r 0.1 -l 3 29 0.13 molino.png
+  edges -r 0.1 -l 3 29 0.13 input/windmill.png
 
 will apply Roberts' algorithm with threshold parameter 0.1, and the
 Marr-Hildreth (LoG) with parameters sigma=3.00, N=29, TZC=0.13; the results are
@@ -121,6 +123,9 @@ There are some doxygen comments added to the code, and a doxygen.cfg file is pro
 Changelog
 ---------
 
+* 2015.02.09:
+   * Removed spanish filenames from readme
+	* Added a note regarding the order of the arguments
 * 2014.11.10:
    * Corrected bug in Haralick's algorithm
 	* Improved the way output filenames were handled
@@ -136,8 +141,8 @@ Changelog
 Copyright and License
 ---------------------
 
-Copyright (c) 2011-2013, Haldo Sponton <haldos@fing.edu.uy>
-Copyright (c) 2011-2013, Juan Cardelino <juanc@fing.edu.uy>
+Copyright (c) 2011-2015, Haldo Sponton <haldos@fing.edu.uy>
+Copyright (c) 2011-2015, Juan Cardelino <juanc@fing.edu.uy>
 
 This program is free software: you can redistribute it and/or
 modify it under the terms of the GNU General Public License as
