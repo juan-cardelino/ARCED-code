@@ -103,7 +103,8 @@ static float *LoG_kernel(int n, float sigma) {
     return kernel;
 }
 
-/** \brief 2D convolution of an input image (size w x h) with a square (n x n) kernel.
+/** \brief 2D convolution of an input image (size w x h) with a square (n x n)
+ kernel.
 
  Two padding methods are available:
    zero-padding (padding_method=0)
@@ -344,7 +345,7 @@ float *edges_mh(float *im, int w, int h,
     float max = 0.0;
     for(int i=0; i<w; i++) {
         for(int j=0; j<h; j++) {
-            // laplacian is (w+n+1)x(h+n+1) with an offset of (n+1)/2 in x and y
+            //laplacian is (w+n+1)x(h+n+1) with an offset of (n+1)/2 in x and y
             float v = abs( laplacian[(i+(n+1)/2) + (j+(n+1)/2)*(w+n+1)] );
             if( v > max ) max = v;
         }
@@ -354,7 +355,7 @@ float *edges_mh(float *im, int w, int h,
     float *edges = xmalloc(w*h*sizeof(float));
     for(int i=0; i<w; i++) {
         for(int j=0; j<h; j++) {
-            // laplacian is (w+n+1)x(h+n+1) with an offset of (n+1)/2 in x and y
+            //laplacian is (w+n+1)x(h+n+1) with an offset of (n+1)/2 in x and y
             float UP_LE = laplacian[ (i-1+(n+1)/2) + (j+1+(n+1)/2)*(w+n+1) ];
             float UP    = laplacian[ (i  +(n+1)/2) + (j+1+(n+1)/2)*(w+n+1) ];
             float UP_RI = laplacian[ (i+1+(n+1)/2) + (j+1+(n+1)/2)*(w+n+1) ];
@@ -538,10 +539,15 @@ float *edges_haralick(float *im, int w, int h,
                      + k8  * sintheta * sintheta * costheta
                      + k9  * sintheta * costheta * costheta
                      + k10 * costheta * costheta * costheta;
-				int cond1=fabs( C2 / (3.0 * C3+eps)) < rhozero;
-				int cond2=C3 < 0.0;
-				int cond3=C2 > 0.0;	//this condition is implicit, does not need to be checked, but we do to provide extra safety
-				//int cond4=fabs(C1-C2*C2/C3/3) > 0.0;	//this one does not need to be imposed by construction, see paper.
+			int cond1=fabs( C2 / (3.0 * C3+eps)) < rhozero;
+			int cond2=C3 < 0.0;
+			/* this condition is implicit, does not need to be checked, but we 
+			do to provide extra safety.
+			*/
+			int cond3=C2 > 0.0;	
+			//this one does not need to be imposed by construction, see paper.
+			//int cond4=fabs(C1-C2*C2/C3/3) > 0.0;
+			
 				
             if( cond1  && cond2 && cond3) {
                 edges[i+j*w] = 255.0;

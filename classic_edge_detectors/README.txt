@@ -109,6 +109,8 @@ Note: it executes only one algorithm each time, i.e. it can't run two simultaneo
 Tested platforms
 ----------------
 
+* Ubuntu Linux 14.10 x86_64
+   * gcc version 4.9.1 (Ubuntu 4.9.1-16ubuntu6)
 * Ubuntu Linux 14.04 x86_64
    * gcc version 4.8.2 (Ubuntu 4.8.2-19ubuntu1)
 * OSX Mavericks 10.10
@@ -126,6 +128,7 @@ Changelog
 * 2015.02.09:
    * Removed spanish filenames from readme
 	* Added a note regarding the order of the arguments
+	* Tested on new platforms
 * 2014.11.10:
    * Corrected bug in Haralick's algorithm
 	* Improved the way output filenames were handled
