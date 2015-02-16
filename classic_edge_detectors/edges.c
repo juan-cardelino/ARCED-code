@@ -28,31 +28,31 @@
 /* Display help function */
 void displayhelp(void) {
     printf("Usage: edges [options] input.png\n"
-           "  -r <th>                Roberts' algorithm\n"
-           "                            th      threshold (float in [0,1])\n"
-           "  -p <th>                Prewitt's algorithm\n"
-           "                            th      threshold (float in [0,1])\n"
-           "  -s <th>                Sobel's algorithm\n"
-           "                            th      threshold (float in [0,1])\n"
-           "  -m <sigma> <n> <th>    Marr-Hildreth algorithm (Gaussian)\n"
-           "                            sigma   std dev of Gaussian kernel\n"
-           "                            n       size of Gaussian kernel (int)\n"
-           "                            th      threshold (float in [0,1])\n"
-           "  -l <sigma> <n> <th>    Marr-Hildreth algorithm (LoG)\n"
-           "                            sigma   std dev of LoG kernel\n"
-           "                            n       size of LoG kernel (int)\n"
-           "                            th      threshold (float in [0,1])\n"
-           "  -h <th>                Haralick's algorithm\n"
-           "                            th      threshold (float in [0,1])\n"
-           "  -z <pd>                Boundary condition used\n"
-           "                            pd      padding method (0 zero padding, 1 periodic)\n"
-           "  -o                     output filename\n"
-			  "                            (Default value=\"out_<algorithm>.png\")\n"
-			  "  -H                     Display this help\n"
-           "\nMore than one option can be used together. "
-           "\nOutput is written to image files. Output filename has the form out_<algorithm>.png."
-			  "\nThis behavior is altered by the -o option. If present, the output filename "
-			  "\nwill be one specified by this option.\n");
+      "  -r <th>                Roberts' algorithm\n"
+      "                            th      threshold (float in [0,1])\n"
+      "  -p <th>                Prewitt's algorithm\n"
+      "                            th      threshold (float in [0,1])\n"
+      "  -s <th>                Sobel's algorithm\n"
+      "                            th      threshold (float in [0,1])\n"
+      "  -m <sigma> <n> <th>    Marr-Hildreth algorithm (Gaussian)\n"
+      "                            sigma   std dev of Gaussian kernel\n"
+      "                            n       size of Gaussian kernel (int)\n"
+      "                            th      threshold (float in [0,1])\n"
+      "  -l <sigma> <n> <th>    Marr-Hildreth algorithm (LoG)\n"
+      "                            sigma   std dev of LoG kernel\n"
+      "                            n       size of LoG kernel (int)\n"
+      "                            th      threshold (float in [0,1])\n"
+      "  -h <th>                Haralick's algorithm\n"
+      "                            th      threshold (float in [0,1])\n"
+      "  -z <pd>                Boundary condition used\n"
+      "                            pd      padding method (0 zero padding, 1 periodic)\n"
+      "  -o                     output filename\n"
+		  "                            (Default value=\"out_<algorithm>.png\")\n"
+		  "  -H                     Display this help\n"
+      "\nMore than one option can be used together. "
+      "\nOutput is written to image files. Output filename has the form out_<algorithm>.png."
+		  "\nThis behavior is altered by the -o option. If present, the output filename "
+		  "\nwill be one specified by this option.\n");
 }
 
 /* Main function */
@@ -185,7 +185,8 @@ int main(int argc, char *argv[]) {
         float th_roberts = atof(argv[argc_roberts+1]); // threshold
         printf("Running Roberts, threshold=%.2f",th_roberts);
         float *im_roberts = edges_roberts(im, w, h, th_roberts, padding_method);
-		  if(argc_output==0 || nb_algos>1) sprintf(fname_output,"%s%s",basename_output,"_roberts.png");
+		  if(argc_output==0 || nb_algos>1) 
+        sprintf(fname_output,"%s%s",basename_output,"_roberts.png");
 		  printf(" output: %s\n",fname_output);
         io_png_write_f32(fname_output, im_roberts, w, h, 1);
         free(im_roberts);
@@ -196,7 +197,8 @@ int main(int argc, char *argv[]) {
         float th_prewitt = atof(argv[argc_prewitt+1]); // threshold
         printf("Running Prewitt, threshold=%.2f",th_prewitt);
         float *im_prewitt = edges_prewitt(im, w, h, th_prewitt, padding_method);
-		  if(argc_output==0 || nb_algos>1) sprintf(fname_output,"%s%s",basename_output,"_prewitt.png");
+		  if(argc_output==0 || nb_algos>1) 
+        sprintf(fname_output,"%s%s",basename_output,"_prewitt.png");
 		  printf(" output: %s\n",fname_output);
         io_png_write_f32(fname_output, im_prewitt, w, h, 1);
         free(im_prewitt);
@@ -207,7 +209,8 @@ int main(int argc, char *argv[]) {
         float th_sobel = atof(argv[argc_sobel+1]); // threshold
         printf("Running Sobel, threshold=%.2f",th_sobel);
         float *im_sobel = edges_sobel(im, w, h, th_sobel, padding_method);
-		  if(argc_output==0 || nb_algos>1) sprintf(fname_output,"%s%s",basename_output,"_sobel.png");
+		  if(argc_output==0 || nb_algos>1) 
+        sprintf(fname_output,"%s%s",basename_output,"_sobel.png");
 		  printf(" output: %s\n",fname_output);
         io_png_write_f32(fname_output, im_sobel, w, h, 1);
         free(im_sobel);
@@ -221,7 +224,8 @@ int main(int argc, char *argv[]) {
         printf("Running Marr-Hildreth (Gaussian), sigma=%.2f, N=%d, TZC=%.2f",
                sigma_m, n_m, tzc_m);
         float *im_mh = edges_mh(im, w, h, sigma_m, n_m, tzc_m, padding_method);
-		  if(argc_output==0 || nb_algos>1) sprintf(fname_output,"%s%s",basename_output,"_mh.png");
+		  if(argc_output==0 || nb_algos>1) 
+        sprintf(fname_output,"%s%s",basename_output,"_mh.png");
 		  printf(" output: %s\n",fname_output);
         io_png_write_f32(fname_output, im_mh, w, h, 1);
         free(im_mh);
@@ -236,7 +240,8 @@ int main(int argc, char *argv[]) {
                sigma_l, n_l, tzc_l);
         float *im_mhl = edges_mh_log(im, w, h,
                                      sigma_l, n_l, tzc_l, padding_method);
-		  if(argc_output==0 || nb_algos>1) sprintf(fname_output,"%s%s",basename_output,"_mhl.png");
+		  if(argc_output==0 || nb_algos>1) 
+        sprintf(fname_output,"%s%s",basename_output,"_mhl.png");
 		  printf(" output: %s\n",fname_output);
         io_png_write_f32(fname_output, im_mhl, w, h, 1);
         free(im_mhl);
@@ -247,7 +252,8 @@ int main(int argc, char *argv[]) {
         float rhozero = atof(argv[argc_haralick+1]); // threshold
         printf("Running Haralick, rhozero=%.2f",rhozero);
         float *im_haralick = edges_haralick(im, w, h, rhozero, padding_method);
-		  if(argc_output==0 || nb_algos>1) sprintf(fname_output,"%s%s",basename_output,"_haralick.png");
+		  if(argc_output==0 || nb_algos>1) 
+        sprintf(fname_output,"%s%s",basename_output,"_haralick.png");
 		  printf(" output: %s\n",fname_output);
         io_png_write_f32(fname_output, im_haralick, w, h, 1);
         free(im_haralick);
