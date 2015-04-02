@@ -3,6 +3,7 @@ A review of classic edge detectors
 Version 1.0 - Jun  21, 2013
 Version 1.1 - May  13, 2014
 Version 1.2 - Nov  11, 2014
+Version 1.3 - Apr  03, 2015
 
 Haldo Sponton <haldos@fing.edu.uy>
 Juan Cardelino <juanc@fing.edu.uy>
@@ -125,6 +126,8 @@ There are some doxygen comments added to the code, and a doxygen.cfg file is pro
 Changelog
 ---------
 
+* 2015.04.03:
+   * Added correct input images
 * 2015.02.09:
    * Removed spanish filenames from readme
 	* Added a note regarding the order of the arguments
