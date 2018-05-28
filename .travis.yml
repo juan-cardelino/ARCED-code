@@ -1,2 +1,4 @@
 language: c++
 sudo: false
+before_script: cd classic_edge_detectors
+script: make
