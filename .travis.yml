@@ -1,9 +1,2 @@
 language: c++
 sudo: false
-
-matrix:
-
-  include:
-      - os: linux
-      env: UNIT_TESTS=true LLVM_VERSION=default
-      compiler: clang
